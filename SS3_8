@@ -1,0 +1,10 @@
+
+alter table library.Books
+add column genre varchar(50);
+alter table library.Books
+rename column available to is_available;
+alter table library.Members
+drop column email;
+drop table sales.orderdetails
+
+
