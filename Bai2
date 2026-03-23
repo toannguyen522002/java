@@ -1,0 +1,21 @@
+create table university.Students(
+    student_id serial primary key ,
+    first_name varchar(50) not null ,
+    last_name varchar(50) not null ,
+    birth_date date not null ,
+    email varchar(50) not null unique
+
+)
+create table university.Course(
+    course_id serial primary key ,
+    course_name varchar(100) not null,
+    credits int
+)
+create table university.Enrollments(
+    enrollment_id serial primary key ,
+    student_id serial,
+    foreign key (student_id) references university.Students(student_id),
+    course_id serial ,
+    foreign key (course_id) references university.Course(course_id),
+    enroll_date date
+)
