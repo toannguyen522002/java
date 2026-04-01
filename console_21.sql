@@ -45,6 +45,31 @@ from orders o
 group by p.category
 having sum(o.total_price) > 2000
 order by tongdoanhthu desc ;
+--Viết truy vấn con (Subquery) để tìm sản phẩm có doanh thu cao nhất trong bảng orders
+--Hiển thị: product_name, total_revenue
+SELECT
+    p.product_name,
+    SUM(o.total_price) AS total_revenue
+FROM orders o
+         JOIN products p ON o.product_id = p.product_id
+GROUP BY p.product_name
+HAVING SUM(o.total_price) = (
+    SELECT MAX(total_revenue)
+    FROM (
+             SELECT
+                 product_id,
+                 SUM(total_price) AS total_revenue
+             FROM orders
+             GROUP BY product_id
+         ) AS sub
+);
+--Viết truy vấn hiển thị tổng doanh thu theo từng nhóm category (dùng JOIN + GROUP BY)
+SELECT
+    p.category,
+    SUM(o.total_price) AS total_revenue
+FROM orders o
+         JOIN products p ON o.product_id = p.product_id
+GROUP BY p.category;
 
 
 
